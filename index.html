@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./formulario.css">
+</head>
+<body>
+    <form class='box'>
+        <div class='box-form'>
+        <div class='box-login-tab'></div>
+        <div class='box-login-title'>
+            <div class='i i-login'></div><h2>LOGIN</h2>
+          </div>
+          <div class='box-login'>
+            <div class='fieldset-body' id='login_form'>
+              <button onclick="openLoginInfo();" class='b b-form i i-more' title='Mais Informações'></button>
+                  <p class='field'>
+                <label for='user'>E-MAIL</label>
+                <input type='text' id='email' name='user' title='Username' />
+                <span id='valida' class='i i-warning'></span>
+              </p>
+                  <p class='field'>
+                <label for='password'>PASSWORD</label>
+                <input type='password' id='pass' name='pass' title='Password' />
+                <span id='valida' class='i i-close'></span>
+              </p>
+              <input type='submit' id='limpiar'  value='limpiar' title='Get Started'/>
+              <input type='submit' id='ingresar' value='GUARDAR' title='Get Started'/>
+              <p class='field'>
+                <label for='usuario'>USUARIO</label>
+                <input type='text' id='email1' name='user' title='Password' />
+                <span id='valida' class='i i-close'></span>
+              </p>
+              
+              <p class='field'>
+                <label for='password'>PASSWORD</label>
+                <input type='password' id='pass1' name='pass' title='Password' />
+                <span id='valida' class='i i-close'></span>
+              </p>
+                <div>
+                  <input type='submit' id='acceder'  value='ACCEDER' title='Get Started'/>
+                </div>
+          </div>
+        </div>
+        <div class='box-info'>
+                              <p><button onclick="closeLoginInfo();" class='b b-info i i-left' title='Back to Sign In'></button><h3>Need Help?
+                                <br><br><br><br><b><b><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                  <br><br>
+                                </b></b>
+                              </h3>
+          </p>
+                        </div>
+      </form>
+      
+      <hr><br><br><br><br><br><br><br><br>
+      <p>Derechos de autor <br>
+
+        Jeffer Villegas Gallegos <br>
+
+        Omar Valdivia Galdos
+      </p>
+        <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+        //Creamos una nueva cuenta
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyDurjJ7Q2qUPbNaFHHhuh9GuR2-RGsdRRw",
+        authDomain: "tarea-6820f.firebaseapp.com",
+        projectId: "tarea-6820f",
+        storageBucket: "tarea-6820f.appspot.com",
+        messagingSenderId: "328302125739",
+        appId: "1:328302125739:web:109919c6f1c8d206e8cdee"
+};
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider(app);
+        //conectamos con el ID y obtenoms los valores 
+        document.getElementById("ingresar").addEventListener("click", function(){
+          //obtener los valores 
+          const email =document.getElementById("email").value;
+          const password = document.getElementById("pass").value;
+          //realizo la conexion de pagina web a firebase
+          createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          // ...
+          //alert("Tu cuenta esta creada en Firebase")
+  })
+          .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          //alert("Tu cuenta no se creado por falta de datos o ya está registrado")
+          // ..
+  });
+})
+
+      //conectamos con el ingreso de sesion
+      document.getElementById("acceder").addEventListener("click", function(){
+        const email1 = document.getElementById("email1").value;
+        const pass1 = document.getElementById("pass1").value;
+        signInWithEmailAndPassword(auth, email1, pass1)
+          .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          // ...
+          alert("Tu cuenta esta activa")
+          //Para que aparezca una pagina de internet
+          //window.open("https://www.youtube.com/", "mi pagina favorita" , "width=300px, heigth=200px")
+          //Aparezca una pagina propia 
+          window.open("inicio.html")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    //alert("Esta cuenta no existe, debes registrarte primero")
+  });
+      })
+      function limpiar(){
+        document.getElementById("form1").reset();
+      }
+    </script>
+    
+
+</body>
+</html>
